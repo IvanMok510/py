@@ -7,7 +7,7 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            openshift.startBuild("hello-app", "--wait=true")
+                            openshift.startBuild("hello-appp", "--wait=true")
                         }
                     }
                 }
@@ -33,7 +33,7 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            openshift.deploy("hello-app")
+                            openshift.deploy("hello-appp")
                         }
                     }
                 }
