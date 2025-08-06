@@ -34,8 +34,9 @@ pipeline {
             steps {
                 echo "Starting deploy for hello-appp..."
                 sh '''
-                    oc rollout restart deployment/hello-appp -n $(oc project -q)
-                    oc rollout status deployment/hello-appp -n $(oc project -q) --timeout=10m
+                    namespace=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+                    oc rollout restart deployment/hello-appp -n $namespace
+                    oc rollout status deployment/hello-appp -n $namespace --timeout=10m
                 '''
                 echo "Deploy completed."
             }
