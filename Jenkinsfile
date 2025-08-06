@@ -32,19 +32,12 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject() {
-                            echo "Starting deploy for hello-appp..."
-                            def dep = openshift.selector('deployment', 'hello-appp')  // Changed to 'deployment'
-                            dep.rollout().restart()  // Use restart() for Deployments
-                            timeout(10) {
-                                dep.rollout().status()
-                            }
-                            echo "Deploy completed."
-                        }
-                    }
-                }
+                echo "Starting deploy for hello-appp..."
+                sh '''
+                    oc rollout restart deployment/hello-appp -n $(oc project -q)
+                    oc rollout status deployment/hello-appp -n $(oc project -q) --timeout=10m
+                '''
+                echo "Deploy completed."
             }
         }
     }
