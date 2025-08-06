@@ -36,10 +36,10 @@ pipeline {
                     openshift.withCluster() {
                         openshift.withProject() {
                             echo "Starting deploy for hello-appp..."
-                            def dc = openshift.selector('dc', 'hello-appp')
-                            dc.rollout().latest()
+                            def dep = openshift.selector('deployment', 'hello-appp')  // Changed to 'deployment'
+                            dep.rollout().restart()  // Use restart() for Deployments
                             timeout(10) {
-                                dc.rollout().status()
+                                dep.rollout().status()
                             }
                             echo "Deploy completed."
                         }
