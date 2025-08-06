@@ -1,10 +1,12 @@
 from flask import Flask
+import os  # Add this import for dynamic port
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World! I am running on Python in OpenShift!wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\n'
+    return 'Hello World! I am running on Python in OpenShift!\n'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)  # Changed from 8080
+    port = int(os.environ.get('PORT', 8080))  # Use $PORT if set (OpenShift default 8080), fallback to 8080
+    app.run(host='0.0.0.0', port=port)
