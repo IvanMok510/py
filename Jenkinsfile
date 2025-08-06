@@ -19,8 +19,10 @@ pipeline {
             steps {
                 echo 'Running tests (e.g., run the script)...'
                 sh '''
-                    pip3 install -r requirements.txt  # Install Flask (assumes requirements.txt has 'flask')
-                    python3 app.py & sleep 5
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install -r requirements.txt
+                    python app.py & sleep 5
                     curl http://localhost:8080
                     kill %1
                 '''
