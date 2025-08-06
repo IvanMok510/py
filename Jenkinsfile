@@ -7,7 +7,9 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
+                            echo "Starting build for hello-appp..."
                             openshift.startBuild("hello-appp", "--wait=true")
+                            echo "Build completed."
                         }
                     }
                 }
@@ -33,11 +35,13 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
+                            echo "Starting deploy for hello-appp..."
                             def dc = openshift.selector('dc', 'hello-appp')
-                            dc.rollout().latest()  // Triggers the rollout
-                            timeout(10) {  // Waits up to 10 minutes
-                                dc.rollout().status()  // Monitors rollout status until ready
+                            dc.rollout().latest()
+                            timeout(10) {
+                                dc.rollout().status()
                             }
+                            echo "Deploy completed."
                         }
                     }
                 }
