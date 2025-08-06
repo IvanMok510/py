@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World! I am running on Python in OpenShift!\n'
+    return 'Hello World! I am running on Python in OpenShiftwwwwwwwwwwww!\n'
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))  # Use $PORT if set (OpenShift default 8080), fallback to 8080
