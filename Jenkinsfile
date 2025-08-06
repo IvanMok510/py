@@ -33,7 +33,11 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            openshift.deploy("hello-appp")
+                            def dc = openshift.selector('dc', 'hello-appp')
+                            dc.rollout().latest()  // Triggers the rollout
+                            timeout(10) {  // Waits up to 10 minutes
+                                dc.rollout().status()  // Monitors rollout status until ready
+                            }
                         }
                     }
                 }
