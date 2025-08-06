@@ -18,8 +18,12 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests (e.g., run the script)...'
-                // For a simple hello world, this could just execute the script
-                sh 'python3 app.py & sleep 5; curl http://localhost:8080; kill %1'  // Runs briefly and tests output
+                sh '''
+                    pip3 install -r requirements.txt  # Install Flask (assumes requirements.txt has 'flask')
+                    python3 app.py & sleep 5
+                    curl http://localhost:8080
+                    kill %1
+                '''
             }
         }
 
