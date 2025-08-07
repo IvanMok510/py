@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World! I am running on Python in OpenShiftwwwwwwwwwwww!\n'
+    return 'Hello World! I am running on Python in OpenShift!\nThis is a demo\n'
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000)) 
