@@ -7,8 +7,8 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            echo "Starting build for hello-app..."
-                            openshift.startBuild("hello-app", "--wait=true")
+                            echo "Starting build for new-app..."
+                            openshift.startBuild("new-app", "--wait=true")
                             echo "Build completed."
                         }
                     }
@@ -32,11 +32,11 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo "Starting deploy for hello-app..."
+                echo "Starting deploy for new-app..."
                 sh '''
                     namespace=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
-                    oc rollout restart deployment/hello-app -n $namespace
-                    oc rollout status deployment/hello-app -n $namespace --timeout=10m
+                    oc rollout restart deployment/new-app -n $namespace
+                    oc rollout status deployment/new-app -n $namespace --timeout=10m
                 '''
                 echo "Deploy completed."
             }
