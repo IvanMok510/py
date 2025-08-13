@@ -24,7 +24,7 @@ pipeline {
                     source venv/bin/activate
                     pip install -r requirements.txt
                     python3 app.py & sleep 5
-                    curl http://localhost:5000
+                    curl http://localhost:8080
                     kill %1 || true
                 '''
             }
